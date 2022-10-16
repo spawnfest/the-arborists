@@ -104,7 +104,8 @@ defmodule Livebook.MixProject do
       {:floki, ">= 0.27.0", only: :test},
       {:bypass, "~> 2.1", only: :test},
       # Added
-      {:kino, "~> 0.7.0"}
+      # {:kino, "~> 0.7.0"}
+      {:kino, path: "deps/kino"}
     ]
   end
 
