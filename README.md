@@ -1,3 +1,56 @@
+# Live Tree by The Arborists
+
+<img src="demo.gif" alt="The demo of the hack">
+
+## Goal of the hack
+
+Extend the Livebook with an easy way to explore nested data structures in the UI.
+
+While Livebook is great for doing exploratory development, it's a bit inconvenient to work with large data structures. This is very often the case for JSON data coming from RESTful APIs.
+
+Not only all valid JSON responses should be supported, but also any Elixir term - including special handling for tuples, keyword lists and structs.
+
+## Implementation details
+
+This hack is implemented as a [custom Kino](https://hexdocs.pm/kino/Kino.html#module-custom-kinos). The repository contains a cloned repo of [Livebook](https://github.com/livebook-dev/livebook) with [Kino](https://github.com/livebook-dev/kino) added as an explicitly tracked path dependency.
+
+The core changes are in [this commit](https://github.com/spawnfest/the-arborists/commit/b6d6570e2bd97b0341aa41fd779de567f2e31451).
+
+## Setup instructions
+
+1. Set up local development of Livebook:
+
+  ```
+  git clone https://github.com/spawnfest/the-arborists
+  cd the-arborists
+  mix dev.setup
+  ```
+
+2. Run the Livebook server in the current dir:
+
+  ```
+  LIVEBOOK_HOME=. mix phx.server
+  ```
+
+3. Open [the Livebook server](http://localhost:4000),
+4. Open the provided [Livebook](livetree.livemd) file,
+5. Plant some trees!
+
+## Thoughts and the future
+
+- I'd love to see this feature implemented in Livebook; I want this hack to become a basis of a PR,
+- The approach I took is somewhere between extending the inspect protocol and a custom Kino:
+  - `Kino.Tree` is not really a generic tree Kino (as compared to `Kino.DataTable`/`Kino.Table`) since it contains extra features: e.g. when collapsed, the item text is something like `%URI{...},`, but when expanded it changes to `%URI{` and the trailing `},` is rendered after the child items; I think this is a nice feature,
+  - On the other hand, `Kino.Tree` is not exactly on par with what happens when you evaluate Elixir expressions: colors are not supported and `Kino.Tree` basically reimplements parts of the inspect protocol,
+  - It would be great to somehow reconcile the differences between the two,
+- `Kino.Tree` ignores the inspection level,
+- A feature that I didn't have time to write is a UI button to fold the tree at a specified level (by default, the first level is unfolded),
+- Consider making `Kino.Tree` a live Kino?
+
+# Original Livebook documentation follows
+
+---
+
 <h1>
   <a href="https://livebook.dev/" target="_blank">
    <img src="https://github.com/livebook-dev/livebook/raw/main/static/images/logo-with-text.png" alt="Livebook" width="400">
