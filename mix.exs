@@ -102,7 +102,9 @@ defmodule Livebook.MixProject do
       {:phoenix_ecto, "~> 4.4.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:floki, ">= 0.27.0", only: :test},
-      {:bypass, "~> 2.1", only: :test}
+      {:bypass, "~> 2.1", only: :test},
+      # Added
+      {:kino, "~> 0.7.0"}
     ]
   end
 
