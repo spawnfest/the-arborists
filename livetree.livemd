@@ -1,0 +1,57 @@
+# Live Tree
+
+```elixir
+Mix.install([
+  {:kino, path: "deps/kino"},
+  :req
+])
+
+IO.puts("Hello, World! Let's plant some trees! 🌲🌲🌲🌳🌳🌳")
+```
+
+## Planting basic trees
+
+```elixir
+# Example from Kino.DataTable docs
+Kino.Tree.new([
+  %{id: 1, name: "Elixir", website: "https://elixir-lang.org"},
+  %{id: 2, name: "Erlang", website: "https://www.erlang.org"}
+])
+```
+
+```elixir
+# Lists
+Kino.Tree.new([1, 2, 3, [1, 2, 3]])
+```
+
+```elixir
+# Keywords
+Kino.Tree.new(foo: :bar)
+```
+
+```elixir
+# Tuples
+Kino.Tree.new({:foo, "bar", true})
+```
+
+```elixir
+# Maps
+Kino.Tree.new(%{user: %{"email" => "user@example.com"}})
+```
+
+```elixir
+# Maps with compound keys
+Kino.Tree.new(%{{1, 2} => {3, 4}})
+```
+
+```elixir
+# Structs
+Kino.Tree.new(URI.parse("https://elixir-lang.org"))
+```
+
+## HTTP request
+
+```elixir
+Req.get!("https://api.github.com/repos/elixir-lang/elixir").body
+|> Kino.Tree.new()
+```
